@@ -68,5 +68,37 @@ Bitmap getLocalAudioAlbumPicture(String album_art);                     //根据
 String formatDuration(long duration);                                   //格式化时间变成例如03:20的时间格式
 String getFormatSize(long size);                                        //格式化文件大小
 ```
+### 使用Notification
+```
+private static final String NOTIFICATION_LAYOUT_NAME = "sf_layout_player_notification";     //通知布局名字
+private static final String BUTTON_NEXT_ID_NAME = "btn_next_music";                         //上下曲控件的id
+private static final String BUTTON_PRE_ID_NAME = "btn_pre_music";
+private static final String BUTTON_TOGGLE_ID_NAME = "btn_play_pause";                       //开始、暂停播放控件id
+private static final String BUTTON_DESTROY = "btn_destroy";                                 //整个播放器停止的id
+private static final String TV_MUSIC_NAME = "tv_music_name";                                //显示歌曲Title的文本框id
+private static final String TV_ARTIST = "tv_artist";                                        //显示歌手的文本框id
+private static final String IV_MUSIC_COVER = "iv_music_cover";                              //显示专辑图片的控件id
+private static final String ICON_DRAWABLE = "icon_notification_player";                     //Notification的icon需要放在drawable中，不能放在mipmap中
+private static final String DRAWABLE_PLAY_STATE = "btn_notification_player_pause";          //播放状态的图片，可以使用selector
+private static final String DRAWABLE_PAUSE_STATE = "btn_notification_player_play";          //暂停状态的图片
+private static final String DRAWABLE_MUSIC_COVER = "notification_default_cover";            //默认的专辑封面，需要放在drawable中
+```
+使用Notification需要实现的NotificationAdapter
+```
+boolean isPlaying();    //是否在播放
 
+String getMusicName();  //当前歌曲的Title
+
+String getArtistName(); //当前歌曲的歌手名
+
+void loadMusicImage(MusicImageLoadListener musicImageLoadListener); //获取当前播放歌曲的专辑图片地址和Bitmap
+
+/*
+String imgUri = AudioUtils.getLocalAudioAlbumPictureUri(this, currentMusic.getAlbumId());
+Bitmap bitmap = AudioUtils.getLocalAudioAlbumPicture(imgUri);
+musicImageLoadListener.onMusicImageLoaded(imgUri, bitmap);
+*/
+
+void onNotificationClick();     //整个通知点击时
+```
 

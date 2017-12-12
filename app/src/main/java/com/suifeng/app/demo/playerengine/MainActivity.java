@@ -230,6 +230,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onNotificationClick() {
+        finish();
         startActivity(new Intent(this, MainActivity.class));
     }
 }
