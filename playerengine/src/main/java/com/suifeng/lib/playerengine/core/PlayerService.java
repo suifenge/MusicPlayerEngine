@@ -8,7 +8,6 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -72,7 +71,6 @@ public class PlayerService extends Service implements PlayerEngineImpl.OnPlaySta
         }
     };
 
-    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;
