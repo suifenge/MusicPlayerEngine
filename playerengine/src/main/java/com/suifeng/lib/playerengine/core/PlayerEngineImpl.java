@@ -203,7 +203,7 @@ public class PlayerEngineImpl implements PlayerEngine, OnCompletionListener, OnB
 
     @Override
     public void stop() {
-        if(playListManager != null && currentMediaPlayer != null) {
+        if(playerListener != null && currentMediaPlayer != null) {
             playerListener.onTrackProgress(currentMediaPlayer.uri, 0, 0, 0);
             // percent = 1 not 0 is avoid user need show buffer progress on buffer percent is 0
             playerListener.onTrackBuffering(currentMediaPlayer.uri, 1);
