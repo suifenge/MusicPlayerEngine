@@ -166,12 +166,14 @@ public class PlayerEngineImpl implements PlayerEngine, OnCompletionListener, OnB
     }
 
     private void onStartBuffer(String uri) {
-        if(uri.startsWith("http") || uri.startsWith("www") && this.playerListener != null) {
+        if(uri.startsWith("http") || uri.startsWith("www")) {
             int bufferPercent = 0;
             if(currentMediaPlayer != null) {
                 bufferPercent = currentMediaPlayer.bufferPercent;
             }
-            playerListener.onTrackBuffering(uri, bufferPercent);
+            if(playerListener != null) {
+                playerListener.onTrackBuffering(uri, bufferPercent);
+            }
         }
     }
 
