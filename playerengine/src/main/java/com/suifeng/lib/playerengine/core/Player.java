@@ -12,6 +12,7 @@ import com.suifeng.lib.playerengine.api.PlayerListener;
 import com.suifeng.lib.playerengine.command.CommandFactory;
 import com.suifeng.lib.playerengine.entity.Music;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +44,7 @@ import static com.suifeng.lib.playerengine.command.CommandFactory.ExtraData.EXTR
  * main player, user use
  */
 
-public class Player implements PlayerEngine{
+public class Player implements PlayerEngine {
 
     private static final String TAG = "Player";
     private PlayerListener playerListener;
@@ -58,6 +59,7 @@ public class Player implements PlayerEngine{
     private boolean showNotification;
     private CommandFactory commandFactory;  //provide send custom receiver
     private NotificationAdapter notificationAdapter;
+    private List<Object> playMusicList;
 
     public static Player getInstance(Context context) {
         if(instance == null) {
@@ -68,6 +70,7 @@ public class Player implements PlayerEngine{
 
     private Player(Context context) {
         this.mContext = context;
+        playMusicList = new ArrayList<>();
         commandFactory = CommandFactory.getInstance(context);
         sendBaseCommand(ACTION_FIRST);
     }
@@ -76,17 +79,53 @@ public class Player implements PlayerEngine{
      * set play list
      * @param musics need play list
      */
-    public void setPlayMusicList(List<Music> musics) {
+    public void setPlayMusicList(List<? extends Music> musics) {
         if(musics == null || musics.isEmpty()) {
             return;
         }
         if(playListManager == null) {
             playListManager = new PlayListManager();
         }
+        playMusicList.addAll(musics);
         for (Music music : musics) {
             playListManager.addTrackUri(music.getUrl());
         }
-        setPlayListManager(playListManager);
+        if(playerEngine.getPlayListManager() == null) {
+            setPlayListManager(playListManager);
+        }
+    }
+
+    /**
+     * set play list and control play list
+     * @param musics
+     * @param clear
+     */
+    public void setPlayMusicList(List<? extends Music> musics, boolean clear) {
+        if(musics == null || musics.isEmpty()) {
+            return;
+        }
+        if(playListManager == null) {
+            playListManager = new PlayListManager();
+        }
+        if(clear) {
+            playMusicList.clear();
+            playListManager.clearTracks();
+        }
+        playMusicList.addAll(musics);
+        for (Music music : musics) {
+            playListManager.addTrackUri(music.getUrl());
+        }
+        if(playerEngine.getPlayListManager() == null) {
+            setPlayListManager(playListManager);
+        }
+    }
+
+    public List<Object> getPlayMusicList() {
+        return playMusicList;
+    }
+
+    public Object getCurrentMusic() {
+        return (playListManager != null && !playMusicList.isEmpty()) ? playMusicList.get(playListManager.getSelectedIndex()) : null;
     }
 
     @Override

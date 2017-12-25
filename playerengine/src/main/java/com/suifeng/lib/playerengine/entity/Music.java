@@ -10,12 +10,15 @@ public class Music implements Parcelable{
 
     private long id;
     private String title;
+    private String song;
     private String artist;
     private String url;
     private String album;
     private long albumId;
     private long duration;
     private long size;
+    private String cover;
+    private String lyrics;
 
     public Music() {}
 
@@ -27,12 +30,15 @@ public class Music implements Parcelable{
     protected Music(Parcel in) {
         id = in.readLong();
         title = in.readString();
+        song = in.readString();
         artist = in.readString();
         url = in.readString();
         album = in.readString();
         albumId = in.readLong();
         duration = in.readLong();
         size = in.readLong();
+        cover = in.readString();
+        lyrics = in.readString();
     }
 
     public static final Creator<Music> CREATOR = new Creator<Music>() {
@@ -61,6 +67,14 @@ public class Music implements Parcelable{
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSong() {
+        return song;
+    }
+
+    public void setSong(String song) {
+        this.song = song;
     }
 
     public String getArtist() {
@@ -111,6 +125,22 @@ public class Music implements Parcelable{
         this.size = size;
     }
 
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public String getLyrics() {
+        return lyrics;
+    }
+
+    public void setLyrics(String lyrics) {
+        this.lyrics = lyrics;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -120,11 +150,14 @@ public class Music implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeLong(id);
         parcel.writeString(title);
+        parcel.writeString(song);
         parcel.writeString(artist);
         parcel.writeString(url);
         parcel.writeString(album);
         parcel.writeLong(albumId);
         parcel.writeLong(duration);
         parcel.writeLong(size);
+        parcel.writeString(cover);
+        parcel.writeString(lyrics);
     }
 }

@@ -125,6 +125,7 @@ public class MusicLoader {
                         String album = MusicLoader.this.cursor.getString(albumCol);
                         long albumId = MusicLoader.this.cursor.getLong(albumIdCol);
                         Music music = new Music(id, title);
+                        music.setSong(music.getTitle());
                         music.setArtist(artist);
                         music.setUrl(url);
                         music.setAlbum(album);

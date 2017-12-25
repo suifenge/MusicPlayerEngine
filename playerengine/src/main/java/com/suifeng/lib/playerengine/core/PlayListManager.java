@@ -72,6 +72,13 @@ public class PlayListManager {
         }
     }
 
+    public void clearTracks() {
+        playList.clear();
+        playOrder.clear();
+        this.selected = -1;
+        calculateOrder(true);
+    }
+
     public boolean isEmpty() {
         return this.playList.size() == 0;
     }
