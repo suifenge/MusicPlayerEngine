@@ -90,7 +90,7 @@ public class Player implements PlayerEngine {
         for (Music music : musics) {
             playListManager.addTrackUri(music.getUrl());
         }
-        if(playerEngine.getPlayListManager() == null) {
+        if(playerEngine != null && playerEngine.getPlayListManager() == null) {
             setPlayListManager(playListManager);
         }
     }
@@ -115,7 +115,7 @@ public class Player implements PlayerEngine {
         for (Music music : musics) {
             playListManager.addTrackUri(music.getUrl());
         }
-        if(playerEngine.getPlayListManager() == null) {
+        if(playerEngine != null && playerEngine.getPlayListManager() == null) {
             setPlayListManager(playListManager);
         }
     }

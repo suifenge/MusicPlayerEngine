@@ -5,7 +5,7 @@ publish{
     userOrg = 'suifenge'//bintray.com的用户名
     groupId = 'com.suifeng'//项目包名
     artifactId = 'playerengine'//在Jfrog上新建项目名称
-    publishVersion = '1.0.3'//在Jfrog上新建时的版本号
+    publishVersion = '1.0.4'//在Jfrog上新建时的版本号
     desc = 'Music Player Engine'//描述，不重要
     website = 'https://github.com/suifenge/MusicPlayerEngine'//项目主页
 }
@@ -23,7 +23,7 @@ android {
         minSdkVersion 18
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0.3"
+        versionName "1.0.4"
     }
     buildTypes {
         release {
