@@ -70,13 +70,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         player.setNotificationAdapter(this);
 
         player.setListener(this);
-
-        Player player1 = new Player.Builder(this)
-                                    .setFadeVolumeWhenStartOrPause(true)
-                                    .setPlayNextWhenError(true)
-                                    .setShowNotification(false)
-                                    .setPlaybackMode(PlaybackMode.SHUFFLE)
-                                    .build();
     }
 
     private void loadLocalMusic() {

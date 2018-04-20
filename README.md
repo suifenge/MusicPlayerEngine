@@ -2,7 +2,7 @@
 PlayerEngine 是一个封装好的音乐播放器核心，方便使用系统的MediaPlayer。
 ## 导入
 1. import module 的方式直接把playerengine以module方式依赖到项目中
-2. 使用gradle远程导入 compile 'com.suifeng:playerengine:1.0.4'
+2. 使用gradle远程导入 compile 'com.suifeng:playerengine:1.0.5'
 ## 使用
 ### 必要权限
 ```
