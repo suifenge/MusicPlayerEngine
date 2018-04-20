@@ -75,6 +75,38 @@ public class Player implements PlayerEngine {
         sendBaseCommand(ACTION_FIRST);
     }
 
+    public static class Builder {
+
+        private Player player;
+        public Builder(Context context) {
+            player = Player.getInstance(context);
+        }
+
+        public Builder setPlayNextWhenError(boolean playNextWhenError) {
+            player.setPlayNextWhenError(playNextWhenError);
+            return this;
+        }
+
+        public Builder setPlaybackMode(PlaybackMode playbackMode) {
+            player.setPlaybackMode(playbackMode);
+            return this;
+        }
+
+        public Builder setFadeVolumeWhenStartOrPause(boolean fadeVolumeWhenStartOrPause) {
+            player.setFadeVolumeWhenStartOrPause(fadeVolumeWhenStartOrPause);
+            return this;
+        }
+
+        public Builder setShowNotification(boolean showNotification) {
+            player.setShowNotification(showNotification);
+            return this;
+        }
+
+        public Player build(){
+            return player;
+        }
+    }
+
     /**
      * set play list
      * @param musics need play list
@@ -328,7 +360,6 @@ public class Player implements PlayerEngine {
 
     public void setShowNotification(boolean show) {
         this.showNotification = show;
-
     }
 
     public boolean isShowNotification() {

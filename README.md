@@ -24,12 +24,20 @@ PlayerEngine 是一个封装好的音乐播放器核心，方便使用系统的M
 ```
 ### Java代码中
 ```
+一、
 player = Player.getInstance(this);              //获取播放器对象
 player.setPlayNextWhenError(true);              //设置发生错误时继续播放(当连续发生5次出错就会暂停播放)
 player.setPlaybackMode(PlaybackMode.ALL);       //设置播放模式
 player.setFadeVolumeWhenStartOrPause(false);    //设置当开始或暂停时声音会有慢慢变高或低的效果
 player.setShowNotification(true);               //设置是否需要显示Notification控制播放
 player.setNotificationAdapter(this);            //需要使用Notification必须要需要实现的的方法
+二、(1.0.5新增)
+player = new Player.Builder(this)
+                   .setFadeVolumeWhenStartOrPause(true)
+                   .setPlayNextWhenError(true)
+                   .setShowNotification(false)
+                   .setPlaybackMode(PlaybackMode.SHUFFLE)
+                   .build();
 ```
 ### 基础回调 PlayerListener
 相同的参数uri 播放文件的地址
