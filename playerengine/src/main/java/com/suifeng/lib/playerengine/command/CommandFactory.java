@@ -87,6 +87,7 @@ public class CommandFactory {
         public static final String ACTION_SET_PLATLIST = "com.suifeng.set_playlist";
         public static final String ACTION_SET_LISTENER = "com.suifeng.set_listener";
         public static final String ACTION_BRING_TO_FRONT = "com.suifeng.bing_to_front";
+        public static final String ACTION_REQUEST_AUDIO_FOCUS = "com.suifeng.request_audio_focus";
         private Command(){}
     }
 

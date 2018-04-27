@@ -22,6 +22,7 @@ import static com.suifeng.lib.playerengine.command.CommandFactory.Command.ACTION
 import static com.suifeng.lib.playerengine.command.CommandFactory.Command.ACTION_PLAY;
 import static com.suifeng.lib.playerengine.command.CommandFactory.Command.ACTION_PLAY_NEXT_WHEN_ERROR;
 import static com.suifeng.lib.playerengine.command.CommandFactory.Command.ACTION_PRE;
+import static com.suifeng.lib.playerengine.command.CommandFactory.Command.ACTION_REQUEST_AUDIO_FOCUS;
 import static com.suifeng.lib.playerengine.command.CommandFactory.Command.ACTION_RESUME;
 import static com.suifeng.lib.playerengine.command.CommandFactory.Command.ACTION_SEEK_TO;
 import static com.suifeng.lib.playerengine.command.CommandFactory.Command.ACTION_SET_LISTENER;
@@ -189,6 +190,8 @@ public class PlayerService extends Service implements PlayerEngineImpl.OnPlaySta
                                 if(notificationAdapter != null) {
                                     notificationAdapter.onNotificationClick();
                                 }
+                            } else if(ACTION_REQUEST_AUDIO_FOCUS.equals(action)) {
+                                audioHelper.requestFocus();
                             }
                         }
 
