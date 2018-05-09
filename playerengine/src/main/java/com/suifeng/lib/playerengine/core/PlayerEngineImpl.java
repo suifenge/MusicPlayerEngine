@@ -14,6 +14,7 @@ import android.util.Log;
 import com.suifeng.lib.playerengine.api.PlaybackMode;
 import com.suifeng.lib.playerengine.api.PlayerEngine;
 import com.suifeng.lib.playerengine.api.PlayerListener;
+import com.suifeng.lib.playerengine.cache.HttpProxyCacheServer;
 
 import java.io.IOException;
 
@@ -51,6 +52,8 @@ public class PlayerEngineImpl implements PlayerEngine, OnCompletionListener, OnB
     private long mLastFailTime;
     private long mTimesFailed;
     private boolean playNextWhenError = false;
+    private HttpProxyCacheServer proxy;
+
     private Runnable progressRunnable = new Runnable() {
         @Override
         public void run() {
@@ -146,8 +149,15 @@ public class PlayerEngineImpl implements PlayerEngine, OnCompletionListener, OnB
         }
     }
 
+    public void setHttpProxyCacheServer(HttpProxyCacheServer proxy) {
+        this.proxy = proxy;
+    }
+
     private void play(String uri, boolean restart) {
         if(!TextUtils.isEmpty(uri)) {
+            if(this.proxy != null && uri.startsWith("http")) {
+                uri = this.proxy.getProxyUrl(uri);
+            }
             if(currentMediaPlayer != null) {
                 if(uri.equals(currentMediaPlayer.uri) && !restart) {
                     resume();

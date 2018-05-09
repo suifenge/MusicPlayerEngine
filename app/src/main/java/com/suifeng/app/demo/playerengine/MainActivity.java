@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -15,12 +16,14 @@ import com.suifeng.lib.playerengine.api.LoadMusicListener;
 import com.suifeng.lib.playerengine.api.NotificationAdapter;
 import com.suifeng.lib.playerengine.api.PlaybackMode;
 import com.suifeng.lib.playerengine.api.PlayerListener;
+import com.suifeng.lib.playerengine.cache.HttpProxyCacheServer;
 import com.suifeng.lib.playerengine.core.PlayListManager;
 import com.suifeng.lib.playerengine.core.Player;
 import com.suifeng.lib.playerengine.entity.Music;
 import com.suifeng.lib.playerengine.util.AudioUtils;
 import com.suifeng.lib.playerengine.util.MusicLoader;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +71,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         player.setFadeVolumeWhenStartOrPause(false);
         player.setShowNotification(true);
         player.setNotificationAdapter(this);
-
+        File cacheRoot = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/backups/");
+        player.setHttpProxyCacheServer(new HttpProxyCacheServer.Builder(this)
+                                            .cacheDirectory(cacheRoot)
+                                            .maxCacheSize(1024 * 1024 * 1024)
+                                            .build());
         player.setListener(this);
     }
 
@@ -154,7 +161,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.iv_next:
                 player.next();
                 break;
+            case R.id.btn_load_network_music:
+                loadNetworkMusic();
+                break;
         }
+    }
+
+    private void loadNetworkMusic() {
+        musicList.clear();
+        Music music = new Music();
+        music.setArtist("一番星");
+        music.setTitle("一番星");
+        music.setUrl("http://dl.stream.qqmusic.qq.com/M800003DEakK2OBOOt.mp3?vkey=B85984C97B25990B6E3BCA117D1E8AF4CD2EB1650CD4545797A5444722ABA452231933B02DC3B2A5E0F893BF51DF8C5B20D089CB72B693D9&guid=0&uid=0&fromtag=30");
+        musicList.add(music);
+        Music music1 = new Music();
+        music1.setTitle("我的一个道姑朋友");
+        music1.setArtist("以冬");
+        music1.setUrl("http://dl.stream.qqmusic.qq.com/M800004ZzQE62u8FAx.mp3?vkey=B85984C97B25990B6E3BCA117D1E8AF4CD2EB1650CD4545797A5444722ABA452231933B02DC3B2A5E0F893BF51DF8C5B20D089CB72B693D9&guid=0&uid=0&fromtag=30");
+        musicList.add(music1);
+        player.setPlayMusicList(musicList, true);
+        playListManager = player.getPlayListManager();
+        currentMusic = musicList.get(playListManager.getSelectedIndex());
+        setMusicInfo();
     }
 
     @Override

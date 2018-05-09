@@ -2,7 +2,7 @@
 PlayerEngine 是一个封装好的音乐播放器核心，方便使用系统的MediaPlayer。
 ## 导入
 1. import module 的方式直接把playerengine以module方式依赖到项目中
-2. 使用gradle远程导入 compile 'com.suifeng:playerengine:1.0.5'
+2. 使用gradle远程导入 compile 'com.suifeng:playerengine:1.0.7'
 ## 使用
 ### 必要权限
 ```
@@ -38,6 +38,13 @@ player = new Player.Builder(this)
                    .setShowNotification(false)
                    .setPlaybackMode(PlaybackMode.SHUFFLE)
                    .build();
+三、(1.0.7新增)
+//针对网络歌曲增加缓存功能，提供本地缓存
+player.setHttpProxyCacheServer(new HttpProxyCacheServer.Builder(this)
+                                            .cacheDirectory(cacheRoot)
+                                            .maxCacheSize(1024 * 1024 * 1024)
+                                            .build());
+//也能通过Builder的方式进行设置
 ```
 ### 基础回调 PlayerListener
 相同的参数uri 播放文件的地址

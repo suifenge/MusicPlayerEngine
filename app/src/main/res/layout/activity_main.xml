@@ -110,4 +110,12 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_load_network_music"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClick"
+        android:layout_alignParentBottom="true"
+        android:text="加载网络歌曲"/>
 </RelativeLayout>

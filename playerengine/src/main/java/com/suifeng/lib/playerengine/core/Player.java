@@ -9,6 +9,7 @@ import com.suifeng.lib.playerengine.api.NotificationAdapter;
 import com.suifeng.lib.playerengine.api.PlaybackMode;
 import com.suifeng.lib.playerengine.api.PlayerEngine;
 import com.suifeng.lib.playerengine.api.PlayerListener;
+import com.suifeng.lib.playerengine.cache.HttpProxyCacheServer;
 import com.suifeng.lib.playerengine.command.CommandFactory;
 import com.suifeng.lib.playerengine.entity.Music;
 
@@ -61,6 +62,7 @@ public class Player implements PlayerEngine {
     private CommandFactory commandFactory;  //provide send custom receiver
     private NotificationAdapter notificationAdapter;
     private List<Object> playMusicList;
+    private HttpProxyCacheServer proxy;
 
     public static Player getInstance(Context context) {
         if(instance == null) {
@@ -103,9 +105,26 @@ public class Player implements PlayerEngine {
             return this;
         }
 
+        public Builder setHttpProxyCacheServer(HttpProxyCacheServer proxy) {
+            player.setHttpProxyCacheServer(proxy);
+            return this;
+        }
+
         public Player build(){
             return player;
         }
+    }
+
+    /**
+     * set cache proxy
+     * @param proxy cache proxy
+     */
+    public void setHttpProxyCacheServer(HttpProxyCacheServer proxy) {
+        this.proxy = proxy;
+    }
+
+    public HttpProxyCacheServer getHttpProxyCacheServer() {
+        return this.proxy;
     }
 
     /**
@@ -174,6 +193,9 @@ public class Player implements PlayerEngine {
 
     void setPlayerEngine(PlayerEngineImpl playerEngine) {
         this.playerEngine = playerEngine;
+        if(this.proxy != null) {
+            this.playerEngine.setHttpProxyCacheServer(this.proxy);
+        }
     }
 
     public int getAudioSessionId() {
