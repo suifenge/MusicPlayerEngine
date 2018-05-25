@@ -71,10 +71,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         player.setFadeVolumeWhenStartOrPause(false);
         player.setShowNotification(true);
         player.setNotificationAdapter(this);
-        File cacheRoot = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/backups/");
+        File cacheRoot = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/cache/");
         player.setHttpProxyCacheServer(new HttpProxyCacheServer.Builder(this)
                                             .cacheDirectory(cacheRoot)
                                             .maxCacheSize(1024 * 1024 * 1024)
+                                            .fileNameGenerator(new MyFileNameGenerator())
                                             .build());
         player.setListener(this);
     }
@@ -172,13 +173,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Music music = new Music();
         music.setArtist("一番星");
         music.setTitle("一番星");
-        music.setUrl("http://dl.stream.qqmusic.qq.com/M800003DEakK2OBOOt.mp3?vkey=B85984C97B25990B6E3BCA117D1E8AF4CD2EB1650CD4545797A5444722ABA452231933B02DC3B2A5E0F893BF51DF8C5B20D089CB72B693D9&guid=0&uid=0&fromtag=30");
+        music.setUrl("http://dl.stream.qqmusic.qq.com/M800003DEakK2OBOOt.mp3?vkey=59B175179C08BC7235F130D8ED64DC8250DB79832FAEBCDD619A1D785996D2F9334A4C1819333F872D61DC5ADA698692D65C1B06046D6125&guid=0&uid=0&fromtag=30");
         musicList.add(music);
-        Music music1 = new Music();
-        music1.setTitle("我的一个道姑朋友");
-        music1.setArtist("以冬");
-        music1.setUrl("http://dl.stream.qqmusic.qq.com/M800004ZzQE62u8FAx.mp3?vkey=B85984C97B25990B6E3BCA117D1E8AF4CD2EB1650CD4545797A5444722ABA452231933B02DC3B2A5E0F893BF51DF8C5B20D089CB72B693D9&guid=0&uid=0&fromtag=30");
-        musicList.add(music1);
         player.setPlayMusicList(musicList, true);
         playListManager = player.getPlayListManager();
         currentMusic = musicList.get(playListManager.getSelectedIndex());
